@@ -1,0 +1,17 @@
+#+TITLE: Jonabron Channel Index
+#+AUTHOR: librepup/nixpup
+#+DESCRIPTION: Description of the contents of the Jonabron custom channel.
+* Info
+** Provides
+The *Jonabron* Channel provides the following packages:
+- emacs-hoon-mode
+- emacs-fancy-dabbrev
+- naitre
+* Files
+** .guix-channel
+File located in /etc/guix/channels/jonabron/.guix-channel. Contents:
+#+BEGIN_SRC emacs-lisp
+(channel
+ (version 0)
+ (directory "jonabron"))
+#+END_SRC
