@@ -11,6 +11,8 @@ The **Jonabron** Channel provides the following packages:
 - vicinae
 ### Fonts
 - font-bundle-synapsian-karamarea
+### Games
+- osu-lazer-bin
 # Usage
 Add the **Jonabron** Channel to your Guix `channels.scm`, located at "~/.config/guix/channels.scm":
 ```scm
@@ -27,14 +29,17 @@ Afterwards, run `guix pull` to update Guix and your Channels. Once that is compl
 (use-modules ; ... your other Modules ...
              (jonabron packages wm)
              (jonabron packages fonts)
-             (jonabron packages emacs))
+             (jonabron packages emacs)
+             (jonabron packages games))
 
 (define %guix-os (operating-system
   (packages (append
              (map specification->package+output
-                  '("naitre"
-                    "vicinae"
-                    "font-bundle-synapsian-karamarea"
+                  '("naitre" ; From (jonabron packages wm).
+                    "vicinae" ; From (jonabron packages wm).
+                    "font-bundle-synapsian-karamarea" ; From (jonabron packages fonts).
+                    "osu-lazer-bin" ; From (jonabron packages games).
+                    "emacs-fancy-dabbrev" ; From (jonabron packages emacs).
                     ))
              ))
 ))
