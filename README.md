@@ -20,7 +20,8 @@ Add the **Jonabron** Channel to your Guix `channels.scm`, located at "~/.config/
  ; ... your other Channels ...
  (channel
   (name 'jonabron)
-  (url "https://github.com/nixpup/jonabron.git"))
+  (branch "master")
+  (url "https://github.com/librepup/jonabron.git"))
  ; ... your other Channels ...
 ))
 ```
