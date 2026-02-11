@@ -43,7 +43,7 @@ Afterwards, run `guix pull` to update Guix and your Channels. Once that is compl
              (jonabron packages emacs)
              (jonabron packages communication)
              (jonabron packages games)
-	     (jonabron packages entertainment))
+             (jonabron packages entertainment))
 
 (define %guix-os (operating-system
   (packages (append
@@ -55,7 +55,7 @@ Afterwards, run `guix pull` to update Guix and your Channels. Once that is compl
                     "emacs-fancy-dabbrev"
                     "discord"
                     "oh-my-zsh"
-		    "ani-cli"
+                    "ani-cli"
                     ))
              ))
 ))
