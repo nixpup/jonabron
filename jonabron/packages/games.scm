@@ -255,7 +255,7 @@ system and/or a game process.")
                                         (list (shepherd-service
                                                 (provision '(gamemode))
                                                 (documentation "Run the GameMode daemon.")
-                                                (requirement '(dbus user-processes))
+                                                (requirement '(dbus-system user-processes))
                                                 (start #~(make-forkexec-constructor
                                                            (list #$(file-append package "/bin/gamemoded") "-d")))
                                                 (stop #~(make-kill-destructor))))))))
