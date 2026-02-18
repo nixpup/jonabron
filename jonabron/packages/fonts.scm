@@ -36,7 +36,7 @@
        (sha256
         (base32 "1gslck7nd2cw5bmyh6rsqg40bxxl7mq1xhyjsz1419whaayvrpka"))
        (file-name (git-file-name name version))))
-     (outputs '("out" "ttf" "woff"))
+     (outputs '("out"))
      (build-system font-build-system)
      (home-page "https://github.com/librepup/jonafonts")
      (synopsis "Jonafonts Font Bundle")
