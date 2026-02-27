@@ -1,12 +1,14 @@
 (define-module (jonabron packages shells)
   #:use-module (guix packages)
   #:use-module (guix gexp)
+  #:use-module (guix build-system trivial)
+  #:use-module (gnu packages plan9)
   #:use-module ((guix licenses) #:prefix license:)
-  #:use-module  (guix build-system copy)
-  #:use-module  (guix download)
-  #:use-module  (guix git-download)
+  #:use-module (guix build-system copy)
+  #:use-module (guix download)
+  #:use-module (guix git-download)
   #:use-module (guix git)
-  #:export (oh-my-zsh powerlevel-10k))
+  #:export (oh-my-zsh powerlevel-10k plan9-rc-shell))
 
 (define-public oh-my-zsh
   (let ((rev "9df4ea095fe27ccd0ee95f2d34bab884c4a75585"))
@@ -73,3 +75,31 @@
                                    "powerlevel9k.zsh-theme"
                                    "prompt_powerlevel10k_setup"
                                    "prompt_powerlevel9k_setup")))))))
+
+(define-public plan9-rc-shell
+  (package
+    (name "plan9-rc-shell")
+    (version "0.1")
+    (source #f)
+    (build-system trivial-build-system)
+    (arguments
+     (list
+      #:modules '((guix build utils))
+      #:builder
+      #~(begin
+          (use-modules (guix build utils))
+          (let* ((bin (string-append #$output "/bin"))
+                 (rc-path (string-append bin "/rc")))
+            (mkdir-p bin)
+            ;; Create a wrapper script that launches 9 rc
+            (call-with-output-file rc-path
+              (lambda (port)
+                (format port "#!/bin/sh\nexec ~a/bin/9 rc \"$@\"\n"
+                        #$(this-package-input "plan9port"))))
+            (chmod rc-path #o555)))))
+    (inputs
+     (list plan9port))
+    (synopsis "The Plan 9 rc shell, wrapped for use as a login shell")
+    (description "Provides a standalone 'rc' binary that calls plan9port's rc.")
+    (home-page "https://9fans.github.io/plan9port/")
+    (license #f)))
