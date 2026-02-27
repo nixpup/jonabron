@@ -6,6 +6,7 @@
   #:use-module (guix utils)
   #:use-module (gnu packages multiprecision)
   #:use-module (guix build-system trivial)
+  #:use-module (gnu packages plan9)
   #:use-module (gnu packages bash)
   #:use-module (gnu packages icu4c)
   #:use-module (gnu packages libidn)
@@ -30,7 +31,7 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (guix build-system meson)
   #:use-module ((guix licenses) #:prefix license:)
-  #:export (naitre vicinae))
+  #:export (naitre vicinae plan9-rio-session))
 
 (define-public vicinae
   (package
@@ -224,3 +225,35 @@ DesktopNames=NaitreHUD
     (description "A Wayland compositor based on wlroots and scenefx,
 inspired by dwl but aiming to be more feature-rich.")
     (license license:gpl3))))
+
+(define-public plan9-rio-session
+  (package
+    (name "plan9-rio-session")
+    (version "0.1")
+    (source #f)
+    (build-system trivial-build-system)
+    (arguments
+     (list
+      #:modules '((guix build utils))
+      #:builder
+      #~(begin
+          (use-modules (guix build utils))
+          (let* ((out #$output)
+                 (xsessions (string-append out "/share/xsessions"))
+                 (desktop-file (string-append xsessions "/rio.desktop")))
+            (mkdir-p xsessions)
+            (call-with-output-file desktop-file
+              (lambda (port)
+                (format port
+                        "[Desktop Entry]~@
+Name=Rio~@
+Comment=Plan9Port Rio Window Manager~@
+Exec=~a/bin/9 rio~@
+Type=Application~%"
+                        #$(this-package-input "plan9port"))))))))
+    (inputs
+     (list plan9port))
+    (synopsis "X11 Session File for the Rio Window Manager")
+    (description "This Package provides a .desktop File to Launch Rio from Plan9Port.")
+    (home-page "https://9fans.github.io/plan9port/")
+    (license #f)))
