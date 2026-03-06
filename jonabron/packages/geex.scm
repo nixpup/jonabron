@@ -6,6 +6,7 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages gnome)
+  #:use-module (gnu packages terminals)
   #:use-module (gnu packages base)
   #:use-module (gnu packages wget)
   #:use-module (gnu packages bash)
@@ -24,7 +25,7 @@
 (define-public geex-bar
   (package
    (name "geex-bar")
-   (version "1")
+   (version "2")
    (source #f)
    (build-system trivial-build-system)
    (arguments
@@ -48,6 +49,7 @@
                 (grep #$(this-package-input "grep"))
                 (coreutils #$(this-package-input "coreutils"))
                 (sed #$(this-package-input "sed"))
+                (kitty #$(this-package-input "kitty"))
                 (bash #$(this-package-input "bash"))
                 (gawk #$(this-package-input "gawk"))
                 (procps #$(this-package-input "procps"))
@@ -59,6 +61,7 @@
                             '#$(list xrandr
                                      polybar
                                      grep
+                                     kitty
                                      coreutils
                                      sed
                                      bash
@@ -68,12 +71,12 @@
                                      network-manager
                                      font-jonafonts
                                      glibc-utf8-locales)))
-                (input-list (list #$xrandr #$polybar #$grep #$coreutils #$sed #$bash #$gawk #$procps #$sysstat #$network-manager #$font-jonafonts))
+                (input-list (list #$xrandr #$polybar #$grep #$coreutils #$sed #$bash #$gawk #$procps #$sysstat #$network-manager #$kitty #$font-jonafonts))
                 (path-string (string-join (map (lambda (p) (string-append p "/bin"))
                                                input-list))))
            (mkdir-p bin)
            (mkdir-p etc)
-           (copy-file config-source (string-append etc "/geexbar.conf"))
+           (copy-file config-source (string-append etc "/geex-bar.ini"))
            (with-output-to-file exec
              (lambda ()
                (format #t "#!/bin/sh
@@ -89,10 +92,10 @@ fi
 
 if type \"xrandr\" > /dev/null; then
   for m in $(xrandr --query | grep \" connected\" | cut -d\" \" -f1); do
-    MONITOR=$m ~a/bin/polybar --config=~a/geexbar.conf --reload main &
+    MONITOR=$m ~a/bin/polybar --config=~a/geex-bar.ini --reload main &
   done
 else
-  ~a/bin/polybar --config=~a/geexbar.conf --reload main &
+  ~a/bin/polybar --config=~a/geex-bar.ini --reload main &
 fi" locales font-jonafonts path-string pgrep-bin pkill-bin #$polybar etc #$polybar etc)))
            (patch-shebang exec (list (string-append #$bash "/bin")))
            (chmod exec #o555)
@@ -101,6 +104,7 @@ fi" locales font-jonafonts path-string pgrep-bin pkill-bin #$polybar etc #$polyb
                          `("PATH" ":" prefix ,paths))))))
    (inputs
     (list polybar
+          kitty
           xrandr
           grep
           coreutils
