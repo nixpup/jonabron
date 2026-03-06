@@ -25,7 +25,7 @@
 (define-public geex-bar
   (package
    (name "geex-bar")
-   (version "3")
+   (version "4")
    (source #f)
    (build-system trivial-build-system)
    (arguments
@@ -47,6 +47,8 @@
                 (polybar #$(this-package-input "polybar"))
                 (xrandr #$(this-package-input "xrandr"))
                 (grep #$(this-package-input "grep"))
+                (pulseaudio #$(this-package-input "pulseaudio"))
+                (dmenu #$(this-package-input "dmenu"))
                 (coreutils #$(this-package-input "coreutils"))
                 (sed #$(this-package-input "sed"))
                 (kitty #$(this-package-input "kitty"))
@@ -61,6 +63,8 @@
                             '#$(list xrandr
                                      polybar
                                      grep
+                                     dmenu
+                                     pulseaudio
                                      kitty
                                      coreutils
                                      sed
@@ -71,7 +75,7 @@
                                      network-manager
                                      font-jonafonts
                                      glibc-utf8-locales)))
-                (input-list (list #$xrandr #$polybar #$grep #$coreutils #$sed #$bash #$gawk #$procps #$sysstat #$network-manager #$kitty #$font-jonafonts))
+                (input-list (list #$xrandr #$polybar #$grep #$coreutils #$sed #$bash #$gawk #$procps #$sysstat #$network-manager #$kitty #$dmenu #$pulseaudio #$font-jonafonts))
                 (path-string (string-join (map (lambda (p) (string-append p "/bin"))
                                                input-list))))
            (mkdir-p bin)
@@ -115,6 +119,8 @@ fi" locales font-jonafonts path-string pgrep-bin pkill-bin #$polybar etc #$polyb
           sysstat
           network-manager
           font-jonafonts
+          dmenu
+          pulseaudio
           glibc-utf8-locales))
    (synopsis "Custom Polybar Launcher and Configuration")
    (description "Geex-Bar provides the User with a fully customized, and fully featured Polybar Configuration, as well as an executable which automatically detects and adapts to multi-monitor setups.")
