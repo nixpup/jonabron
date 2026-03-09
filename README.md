@@ -89,7 +89,7 @@ Afterwards, run `guix pull` to update Guix and your Channels. Once that is compl
 ```
 ## NixOS
 Add the **Jonabron** Channel as a Flake Input to your `/etc/nixos/flake.nix`, and use either the provided overlay, or manually reference Jonabron Packages via `inputs.jonabron.packages.x86_64-linux.<package>`:
-```
+```nix
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
