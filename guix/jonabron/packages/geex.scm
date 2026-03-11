@@ -46,6 +46,8 @@
                 (glibc-utf8-locales #$(this-package-input "glibc-utf8-locales"))
                 (locales #$(this-package-input "glibc-utf8-locales"))
                 (config-source #$(local-file "files/geex.geex-bar.config.ini"))
+                (tray-source #$(local-file "files/geex.geex-bar.tray.ini"))
+                (tray-exec (string-append bin "/geex-bar-toggle-tray"))
                 (polybar #$(this-package-input "polybar"))
                 (xrandr #$(this-package-input "xrandr"))
                 (grep #$(this-package-input "grep"))
@@ -83,6 +85,20 @@
            (mkdir-p bin)
            (mkdir-p etc)
            (copy-file config-source (string-append etc "/geex-bar.ini"))
+           (copy-file tray-source (string-append etc "/tray.ini"))
+           (with-output-to-file tray-exec
+             (lambda ()
+               (format #t "#!/bin/sh
+TRAY_CONFIG=~a/tray.ini
+PID=$(pgrep -f \"polybar tray-bar --config=$TRAY_CONFIG\")
+
+if [ -n \"$PID\" ]; then
+  kill -9 $PID
+else
+  polybar tray-bar --config=$TRAY_CONFIG &
+fi" etc)))
+           (chmod tray-exec #o555)
+           (wrap-program tray-exec #:sh bash-bin `("PATH" ":" prefix ,paths))
            (with-output-to-file exec
              (lambda ()
                (format #t "#!/bin/sh
