@@ -1,22 +1,20 @@
 {
-  description = "G(N)eex: a custom Nix Channel/Input for various Packages";
-
+  description = "Jonabron: Nix Channel Master Flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
-
   outputs = inputs@{ self, nixpkgs, ... }:
   let
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
     gobm = pkgs.callPackage ./nix/packages/gobm/default.nix { };
     urbit = pkgs.callPackage ./nix/packages/urbit/default.nix { };
-    win2ksvg = pkgs.callPackage ./nix/packages/win2ksvg/default.nix { };
+    dangerousjungle-grub-theme = pkgs.callPackage ./nix/packages/dangerousjungle-grub-theme/default.nix { };
   in
   {
     packages.x86_64-linux = {
       gobm = gobm;
       urbit = urbit;
-      win2ksvg = win2ksvg;
+      dangerousjungle-grub-theme = dangerousjungle-grub-theme;
     };
     apps.x86_64-linux = {
       gobm = {
@@ -39,7 +37,7 @@
     overlays.default = final: prev: {
       gobm = gobm;
       urbit = urbit;
-      win2ksvg = win2ksvg;
+      dangerousjungle-grub-theme = dangerousjungle-grub-theme;
     };
   };
 }
