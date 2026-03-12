@@ -2,6 +2,7 @@
   stdenvNoCC,
   fetchurl,
   lib,
+  pkgs,
 }:
 stdenvNoCC.mkDerivation {
   pname = "win2ksvg-icons";
@@ -10,9 +11,13 @@ stdenvNoCC.mkDerivation {
     url = "https://files06.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc2NjU4NDU0MSwibyI6IjEiLCJzIjoiMmJlNTJjYjEzZjcyNTcyYTNmNzQ5ZWE2YzUwZjI3YmNkZDU4ZGY0OWNiM2Q1Mjg5NjAzOGMxZWYxYTNiMzMxNzVjZWMwMzIyYTFiZDJjN2JlYjdkYTQ0ZDFmYWY4MTk4ZWE2NDMwODAyMjYzNzcwZjBjMDZmMGJiY2I4MjE4OWEiLCJ0IjoxNzczMzMxMjQ2LCJzdGZwIjpudWxsLCJzdGlwIjoiOTQuMTM1LjE3NC4yMTQifQ.QZF9NkkuuodSpXd2rSE6ZamDwJAZsrKZWLALW9InRhA/2025.12.24-14-28.WinXPSVG-plasma5up-scalable-icontheme-blackysgate.de.tar.gz";
     hash = "sha256-lhaU3g7sg9j7waBEt7RhHZSJndGoZk1Ym0ippaetLj0=";
   };
+  buildInputs = [
+    pkgs.findutils
+  ];
   dontBuild = true;
   dontFixup = true;
   dontUpdateIconCache = true;
+  dontDropIconThemeCache = true;
   installPhase = ''
     runHook preInstall
     mkdir -p $out/share/icons/WinXPSVG
@@ -44,7 +49,11 @@ stdenvNoCC.mkDerivation {
     cp -r scalable $out/share/icons/WinXPSVG/scalable
     cp index.theme $out/share/icons/WinXPSVG/index.theme
     cp index.desktop $out/share/icons/WinXPSVG/index.desktop
+    find $out -name "icon-theme.cache" -type f -delete
     runHook postInstall
+  '';
+  postFixup = ''
+    find $out -name "icon-theme.cache" -type f -delete
   '';
   meta = {
     homepage = "https://www.opencode.net/Blackcrack/win2ksvg";
