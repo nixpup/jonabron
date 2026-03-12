@@ -41,8 +41,8 @@ The **Jonabron** Channel provides the following packages:
  - gobm
 #### Networks
  - urbit
-#### Themes
- - win2ksvg
+#### GRUB
+ - dangerousjungle-grub-theme
 
 # Usage
 ## Guix
@@ -91,6 +91,7 @@ Afterwards, run `guix pull` to update Guix and your Channels. Once that is compl
 
 %guix-os
 ```
+
 ## NixOS
 Add the **Jonabron** Channel as a Flake Input to your `/etc/nixos/flake.nix`, and use either the provided overlay, or manually reference Jonabron Packages via `inputs.jonabron.packages.x86_64-linux.<package>`:
 ```nix
