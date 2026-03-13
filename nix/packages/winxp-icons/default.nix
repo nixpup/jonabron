@@ -17,11 +17,12 @@ pkgs.stdenv.mkDerivation rec {
     xptheme
     pkgs.gnused
   ];
+  # Optional: Remove Inherits Option
+  # sed -i '/^Inherits=/d' $out/share/icons/WinXP-Icons/index.theme
   installPhase = ''
     runHook preInstall
     mkdir -p $out/share/icons/WinXP-Icons
     cp -r ./* $out/share/icons/WinXP-Icons/
-    sed -i '/^Inherits=/d' $out/share/icons/WinXP-Icons/index.theme
     runHook postInstall
   '';
   postInstall = ''
