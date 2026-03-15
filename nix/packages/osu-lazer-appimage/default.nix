@@ -9,7 +9,7 @@
 }:
 
 let
-  pname = "osu-lazer-bin";
+  pname = "osu-lazer-appimage";
   version = "2026.305.0";
 
   src = fetchurl {
