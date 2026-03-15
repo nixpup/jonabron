@@ -12,6 +12,11 @@
     xptheme = pkgs.callPackage ./nix/packages/xptheme/default.nix { };
     winxp-icons = pkgs.callPackage ./nix/packages/winxp-icons/default.nix { inherit xptheme; };
     momoisay = pkgs.callPackage ./nix/packages/momoisay/default.nix { };
+    epdfinfo = pkgs.callPackage ./nix/packages/epdfinfo/default.nix { };
+    cartographcf-font = pkgs.callPackage ./nix/packages/cartographcf-font/default.nix { };
+    osu-lazer-appimage = pkgs.callPackage ./nix/packages/osu-lazer-appimage/default.nix { };
+    gnutypewriter-font = pkgs.callPackage ./nix/packages/gnutypewriter-font/default.nix { };
+    jonafonts = pkgs.callPackage ./nix/packages/jonafonts/default.nix { };
   in
   {
     packages.x86_64-linux = {
@@ -21,6 +26,11 @@
       xptheme = xptheme;
       winxp-icons = winxp-icons;
       momoisay = momoisay;
+      epdfinfo = epdfinfo;
+      cartographcf-font = cartographcf-font;
+      osu-lazer-appimage = osu-lazer-appimage;
+      gnutypewriter-font = gnutypewriter-font;
+      jonafonts = jonafonts;
     };
     apps.x86_64-linux = {
       gobm = {
@@ -47,6 +57,22 @@
           mainProgram = "momoisay";
         };
       };
+      epdfinfo = {
+        type = "app";
+        program = "${epdfinfo}/bin/epdfinfo";
+        meta = {
+          description = "EPDFInfo from Emacs";
+          mainProgram = "epdfinfo";
+        };
+      };
+      osu-lazer-appimage = {
+        type = "app";
+        program = "${osu-lazer-appimage}/bin/osu!";
+        meta = {
+          description = "Rhythm is just a *click* away!";
+          mainProgram = "osu!";
+        };
+      };
     };
     overlays.default = final: prev: {
       gobm = gobm;
@@ -55,6 +81,11 @@
       xptheme = xptheme;
       winxp-icons = winxp-icons;
       momoisay = momoisay;
+      epdfinfo = epdfinfo;
+      cartographcf-font = cartographcf-font;
+      osu-lazer-appimage = osu-lazer-appimage;
+      gnutypewriter-font = gnutypewriter-font;
+      jonafonts = jonafonts;
     };
   };
 }
