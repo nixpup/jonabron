@@ -11,6 +11,7 @@
     dangerousjungle-grub-theme = pkgs.callPackage ./nix/packages/dangerousjungle-grub-theme/default.nix { };
     xptheme = pkgs.callPackage ./nix/packages/xptheme/default.nix { };
     winxp-icons = pkgs.callPackage ./nix/packages/winxp-icons/default.nix { inherit xptheme; };
+    momoisay = pkgs.callPackage ./nix/packages/momoisay/default.nix { };
   in
   {
     packages.x86_64-linux = {
@@ -19,6 +20,7 @@
       dangerousjungle-grub-theme = dangerousjungle-grub-theme;
       xptheme = xptheme;
       winxp-icons = winxp-icons;
+      momoisay = momoisay;
     };
     apps.x86_64-linux = {
       gobm = {
@@ -37,6 +39,14 @@
           mainProgram = "urbit";
         };
       };
+      momoisay = {
+        type = "app";
+        program = "${momoisay}/bin/momoisay";
+        meta = {
+          description = "A CLI program written in C featuring talking Saiba Momoi from Blue Archive";
+          mainProgram = "momoisay";
+        };
+      };
     };
     overlays.default = final: prev: {
       gobm = gobm;
@@ -44,6 +54,7 @@
       dangerousjungle-grub-theme = dangerousjungle-grub-theme;
       xptheme = xptheme;
       winxp-icons = winxp-icons;
+      momoisay = momoisay;
     };
   };
 }

@@ -46,6 +46,8 @@ The **Jonabron** Channel provides the following packages:
 #### Icons & GTK Themes
  - xptheme | Windows XP Themefiles
  - winxp-icons | Windows XP Icon Theme
+#### Other
+ - momoisay | Animated and Talking Sabai Momoi from Blue Archive
 
 # Usage
 ## Guix
