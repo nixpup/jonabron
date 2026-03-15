@@ -48,11 +48,20 @@ The **Jonabron** Channel provides the following packages:
  - winxp-icons | Windows XP Icon Theme
 #### Other
  - momoisay | Animated and Talking Sabai Momoi from Blue Archive
+#### Games
+ - osu-lazer-appimage | Latest Version of the osu!lazer AppImage
 #### Fonts
  - cartographcf-font | CartographCF Font
  - gnutypewriter-font | GNU Typewriter Font
  - jonafonts | Jonafonts Bundle
- -   Includes (jonafonts.*): synapsian, karamarea, templeos, icons, lucidabright, blexmono, all (Install All Available Jonafonts)
+   - Includes (jonafonts.*):
+     - synapsian
+     - karamarea
+     - templeos
+     - icons
+     - lucidabright
+     - blexmono
+     - all (Install All Available Jonafonts)
 
 # Usage
 ## Guix
